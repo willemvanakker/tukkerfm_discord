@@ -1,9 +1,9 @@
 require("dotenv").config();
 const { Client, GatewayIntentBits } = require("discord.js");
 const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus, VoiceConnectionStatus, getVoiceConnection } = require("@discordjs/voice");
-const ffmpeg = require("ffmpeg-static");  // Gebruik ffmpeg-static
+const ffmpeg = require("ffmpeg-static");
+const axios = require("axios");
 
-// Laad tokens uit .env
 const TOKEN = process.env.DISCORD_TOKEN;
 
 const client = new Client({
@@ -15,7 +15,24 @@ const client = new Client({
 
 client.once("ready", () => {
     console.log(`✅ Ingelogd als ${client.user.tag}!`);
+
+    updateMusicStatus();
+    setInterval(updateMusicStatus, 10000);
 });
+
+async function updateMusicStatus() {
+    try {
+        const response = await axios.get("https://player.tukker.fm/index.php?c=Tukker%20FM&_=1740953129700");
+        const musicData = response.data;
+        const artist = musicData.artist;
+        const title = musicData.title;
+
+        client.user.setActivity(`${title} - ${artist}`, { type: 2 });
+
+    } catch (error) {
+        console.error("Fout bij het ophalen van muziekstatus:", error);
+    }
+}
 
 client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
@@ -33,9 +50,8 @@ client.on("interactionCreate", async (interaction) => {
             adapterCreator: guild.voiceAdapterCreator,
         });
 
-        // Creëer audio resource met ffmpeg
         const resource = createAudioResource(
-            `https://stream.tukkerfm.nl/tukkerfm`, 
+            `https://stream.tukkerfm.nl/tukkerfm`,
             {
                 inputType: AudioPlayerStatus.Playing,
                 encoderArgs: [
