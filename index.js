@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { Client, GatewayIntentBits } = require("discord.js");
-const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus, VoiceConnectionStatus, getVoiceConnection } = require("@discordjs/voice");
+const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus, VoiceConnectionStatus, getVoiceConnection, StreamType } = require("@discordjs/voice");
 const ffmpeg = require("ffmpeg-static");
 const axios = require("axios");
 
@@ -55,15 +55,8 @@ client.on("interactionCreate", async (interaction) => {
         const resource = createAudioResource(
             `https://stream.tukkerfm.nl/tukkerfm`,
             {
-                inputType: AudioPlayerStatus.Playing,
-                encoderArgs: [
-                    '-analyzeduration', '0',
-                    '-loglevel', '0',
-                    '-f', 's16le',
-                    '-ar', '48000',
-                    '-ac', '2'
-                ],
-                ffmpegExecutable: ffmpeg,
+                inputType: StreamType.Opus, // Het type stream
+                ffmpegExecutable: ffmpeg, // Gebruik ffmpeg als executable
             }
         );
 
