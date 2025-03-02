@@ -58,3 +58,7 @@ DISCORD_TOKEN=JOUW_BOT_TOKEN
 CLIENT_ID=JOUW_CLIENT_ID
 ```
 
+## 🤖 Bot Toevoegen
+Wil je de TukkerFM Discord Bot direct toevoegen aan je server zonder de bot te downloaden? Klik dan op de onderstaande link om de bot uit te nodigen:
+
+[Klik hier om de bot toe te voegen aan je server](https://discord.com/oauth2/authorize?client_id=1345499945532395602&permissions=3145728&scope=bot+applications.commands)
