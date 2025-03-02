@@ -27,6 +27,8 @@ async function updateMusicStatus() {
         const artist = musicData.artist;
         const title = musicData.title;
 
+        console.log(`luisterd naar: ${title} - ${artist}`)
+
         client.user.setActivity(`${title} - ${artist}`, { type: 2 });
 
     } catch (error) {
