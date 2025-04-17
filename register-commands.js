@@ -15,7 +15,6 @@ const commands = [
     new SlashCommandBuilder()
         .setName("copyright")
         .setDescription("Speel het copyright geluidje af (alleen voor beheerders)")
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 ].map(command => command.toJSON());
 
 const rest = new REST({ version: "10" }).setToken(TOKEN);
