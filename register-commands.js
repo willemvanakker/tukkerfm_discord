@@ -1,4 +1,5 @@
-const { REST, Routes, SlashCommandBuilder } = require("discord.js");
+const { REST, Routes, SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
+require("dotenv").config();
 
 // Vervang deze gegevens door die van jouw bot
 const TOKEN = process.env.DISCORD_TOKEN;
@@ -11,6 +12,10 @@ const commands = [
     new SlashCommandBuilder()
         .setName("stop")
         .setDescription("Stop de radio en verlaat het voice channel."),
+    new SlashCommandBuilder()
+        .setName("copyright")
+        .setDescription("Speel het copyright geluidje af (alleen voor beheerders)")
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 ].map(command => command.toJSON());
 
 const rest = new REST({ version: "10" }).setToken(TOKEN);
